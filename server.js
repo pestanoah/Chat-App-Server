@@ -18,7 +18,7 @@ app.use((req, res, next) => {
   next();
 });
 
-let messages = ["test1", "test2", "test3", "test4"];
+let messages = [{ message: "hello", timestamp: new Date() }];
 
 io.on("connection", (socket) => {
   console.log("a user connected");
@@ -28,7 +28,7 @@ io.on("connection", (socket) => {
 
   socket.on("chat message", (msg) => {
     console.log(`Chat message recived: ${msg}`);
-    messages.push(msg);
+    messages.push({ message: msg, timestamp: new Date() });
     io.emit("messages", messages);
   });
 });
